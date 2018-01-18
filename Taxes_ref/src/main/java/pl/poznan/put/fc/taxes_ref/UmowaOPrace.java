@@ -12,8 +12,23 @@ import java.util.Map;
  * @author fenix
  */
 public class UmowaOPrace extends Umowa {
-public UmowaOPrace(Map<String, Double> parametryUmowy) {
+    public UmowaOPrace(Map<String, Double> parametryUmowy) {
         super(parametryUmowy);
-        System.out.println("UMOWA-ZLECENIE");
+        System.out.println("UMOWA-O-PRACE");
+    }
+
+    @Override
+    public String infoKwotaWolnaOdPodatku() {
+        return "Kwota wolna od podatku = " + getParametrUmowy("kwotaWolnaOdPodatku") + "\n";
+    }
+    
+    @Override
+    public double getKosztyUzyskaniaPrzychodu() {
+        return getParametrUmowy("kosztyUzyskaniaPrzychoduUmowaOPrace");
+    }
+
+    @Override
+    public double getKwotaWolnaOdPodatku() {
+        return getParametrUmowy("kwotaWolnaUmowaOPrace");
     }
 }

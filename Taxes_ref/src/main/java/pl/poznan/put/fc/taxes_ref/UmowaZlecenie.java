@@ -15,6 +15,24 @@ public class UmowaZlecenie extends Umowa {
     public UmowaZlecenie(Map<String, Double> parametryUmowy) {
         super(parametryUmowy);
         System.out.println("UMOWA O PRACĘ");
-        informacjeOUmowie();
+    }
+    
+    @Override
+    public String infoKwotaWolnaOdPodatku() {
+        return "";
+    }
+    
+    @Override
+    public double getKosztyUzyskaniaPrzychodu() {
+        double obliczonaPodstawa = obliczonaPodstawa(getParametrUmowy("kwotaDochodu"),
+                    getParametrUmowy("oprocentowanieUbezpieczenieEmerytalne"),
+                    getParametrUmowy("oprocentowanieUbezpieczenieRentowe"),
+                    getParametrUmowy("oprocentowanieUbezpieczenieChorobowe"));
+        return obliczonaPodstawa*getParametrUmowy("kosztyUzyskaniaPrzychoduProcent")/100.0;
+    }
+
+    @Override
+    public double getKwotaWolnaOdPodatku() {
+        return getParametrUmowy("kwotaWolnaUmowaZlecenie");
     }
 }

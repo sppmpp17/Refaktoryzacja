@@ -3,10 +3,12 @@ package pl.poznan.put.fc.taxes_ref;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TaxCalculator {
 	
-	public static double podstawa = 0;
+	/*public static double podstawa = 0;
 	public static char umowa = ' ';
 	// składki na ubezpieczenia społeczne
 	public static double s_emerytalna = 0; // 9,76% podstawyy
@@ -19,26 +21,43 @@ public class TaxCalculator {
 	public static double zaliczkaNaPod = 0; // zaliczka na podatek dochodowy 18%
 	public static double kwotaZmiejsz = 46.33; // kwota zmienjszająca podatek 46,33 PLN
 	public static double zaliczkaUS = 0;
-	public static double zaliczkaUS0 = 0;
+	public static double zaliczkaUS0 = 0;*/
 
 	public static void main(String[] args) {
 		try {
 			InputStreamReader isr = new InputStreamReader(System.in);
 			BufferedReader br = new BufferedReader(isr);
-			
+			String umowa;
+                        double podstawa;
 			System.out.print("Podaj kwotę dochodu: ");	
 			podstawa = Double.parseDouble(br.readLine());
 			
 			System.out.print("Typ umowy: (P)raca, (Z)lecenie: ");
-			umowa = br.readLine().charAt(0);
+			umowa = br.readLine().substring(0,1);
+                  
+                        Map<String, Double> parametryUmowy = new HashMap<>();
+                        parametryUmowy.put("kwotaDochodu", podstawa);
+                        parametryUmowy.put("oprocentowanieUbezpieczenieEmerytalne", 9.76);
+                        parametryUmowy.put("oprocentowanieUbezpieczenieRentowe", 1.5);
+                        parametryUmowy.put("oprocentowanieUbezpieczenieChorobowe", 2.45);
+                        parametryUmowy.put("oprocentowanieSkladkaZdrowotna1", 9.0);
+                        parametryUmowy.put("oprocentowanieSkladkaZdrowotna2", 7.75);
+                        parametryUmowy.put("procentPodatku", 18.0);
+                        parametryUmowy.put("kwotaWolnaUmowaZlecenie", 0.0);
+                        parametryUmowy.put("kwotaWolnaUmowaOPrace", 46.33);
+                        parametryUmowy.put("kosztyUzyskaniaPrzychoduProcent", 20.0);
+                        parametryUmowy.put("kosztyUzyskaniaPrzychoduUmowaOPrace", 111.25);
+                        Umowa u = UmowaFactory.getUmowa(umowa, parametryUmowy);
+                        u.informacjeOUmowie();
 			
 		} catch (Exception ex) {
 			System.out.println("Błędna kwota");
 			System.err.println(ex);
 			return;
 		}
+        }
 		
-		DecimalFormat df00 = new DecimalFormat("#.00");
+		/*DecimalFormat df00 = new DecimalFormat("#.00");
 		DecimalFormat df = new DecimalFormat("#");
 		
 		if (umowa == 'P') {
@@ -152,5 +171,5 @@ public class TaxCalculator {
 	public static void obliczUbezpieczenia(double podstawa) {
 		s_zdrow1 = (podstawa * 9) / 100;
 		s_zdrow2 = (podstawa * 7.75) / 100;
-	}
+	}*/
 }

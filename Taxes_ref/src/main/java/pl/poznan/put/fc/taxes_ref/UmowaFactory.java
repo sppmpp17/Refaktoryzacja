@@ -12,7 +12,7 @@ import java.util.Map;
  * @author fenix
  */
 public class UmowaFactory {
-    public Umowa getUmowa(String typUmowy, Map<String, Double> parametryUmowy) {
+    public static Umowa getUmowa(String typUmowy, Map<String, Double> parametryUmowy) {
         Umowa umowa = null;
         switch(typUmowy) {
             case "P": umowa = new UmowaOPrace(parametryUmowy); break;
