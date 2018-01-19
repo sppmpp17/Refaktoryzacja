@@ -37,7 +37,7 @@ public abstract class Umowa {
         return PARAMETRY_UMOWY.get(key);
     }
     
-    protected double getPodstawaOpodatkowana(double obliczonaPodstawa, double kosztyUzyskania) {
+    public double getPodstawaOpodatkowana(double obliczonaPodstawa, double kosztyUzyskania) {
         return obliczonaPodstawa - kosztyUzyskania;
     }
     
@@ -112,7 +112,7 @@ public abstract class Umowa {
         System.out.println("Zaliczka na podatek dochodowy 18 % = " + zaliczkaNaPodatek);
         System.out.print(infoKwotaWolnaOdPodatku());
         System.out.println("Podatek potrącony = " + 
-                DECIMAL_FORMAT_1.format(zaliczkaNaPodatek));
+                DECIMAL_FORMAT_1.format(podatekPotracony));
         System.out.println("Zaliczka do urzędu skarbowego = " + 
                 DECIMAL_FORMAT_1.format(zaliczkaNaUS) + " po zaokrągleniu = " + DECIMAL_FORMAT_2.format(zaliczkaNaUS));
         System.out.println();
