@@ -13,6 +13,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import pl.poznan.put.fc.taxes_ref.Umowa;
+import pl.poznan.put.fc.taxes_ref.UmowaFactory;
 import pl.poznan.put.fc.taxes_ref.UmowaOPrace;
 import pl.poznan.put.fc.taxes_ref.UmowaZlecenie;
 
@@ -57,6 +58,19 @@ public class TaxesTests {
     @After
     public void tearDown() {
     }
+    
+    @Test
+    public void testFactoryUmowaOPrace() {
+        Umowa umowa = UmowaFactory.getUmowa("P", parametryUmowy);
+        assertTrue(umowa instanceof UmowaOPrace);
+    }
+    
+    @Test
+    public void testFactoryUmowaZlecenie() {
+        Umowa umowa = UmowaFactory.getUmowa("Z", parametryUmowy);
+        assertTrue(umowa instanceof UmowaZlecenie);
+    }
+    
     
     @Test
     public void testSkladkaEmerytalna() {
