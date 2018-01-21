@@ -60,22 +60,19 @@ public class TaxesTests {
     
     @Test
     public void testSkladkaEmerytalna() {
-        double skladkaEmerytalna = 
-                Umowa.obliczProcentOd(parametryUmowy.get("kwotaDochodu"), parametryUmowy.get("oprocentowanieUbezpieczenieEmerytalne"));
+        double skladkaEmerytalna = Umowa.obliczProcentOd(parametryUmowy.get("kwotaDochodu"), parametryUmowy.get("oprocentowanieUbezpieczenieEmerytalne"));
         assertEquals(skladkaEmerytalna, 97.60, 0.001);
     }
     
     @Test
     public void testSkladkaRentowa() {
-        double skladkaRentowa = 
-                Umowa.obliczProcentOd(parametryUmowy.get("kwotaDochodu"), parametryUmowy.get("oprocentowanieUbezpieczenieRentowe"));
+        double skladkaRentowa = Umowa.obliczProcentOd(parametryUmowy.get("kwotaDochodu"), parametryUmowy.get("oprocentowanieUbezpieczenieRentowe"));
         assertEquals(skladkaRentowa, 15.00, 0.001);
     }
     
     @Test
     public void testSkladkaChorobowa() {
-        double skladkaChorobowa = 
-                Umowa.obliczProcentOd(parametryUmowy.get("kwotaDochodu"), parametryUmowy.get("oprocentowanieUbezpieczenieChorobowe"));
+        double skladkaChorobowa = Umowa.obliczProcentOd(parametryUmowy.get("kwotaDochodu"), parametryUmowy.get("oprocentowanieUbezpieczenieChorobowe"));
         assertEquals(skladkaChorobowa, 24.50, 0.001);
     }
     
@@ -87,8 +84,7 @@ public class TaxesTests {
                 parametryUmowy.get("oprocentowanieUbezpieczenieRentowe"),
                 parametryUmowy.get("oprocentowanieUbezpieczenieChorobowe"));
         
-        double skladkaZdrowotna1 = 
-                Umowa.obliczProcentOd(obliczonaPodstawa, parametryUmowy.get("oprocentowanieSkladkaZdrowotna1"));
+        double skladkaZdrowotna1 = Umowa.obliczProcentOd(obliczonaPodstawa, parametryUmowy.get("oprocentowanieSkladkaZdrowotna1"));
         assertEquals(skladkaZdrowotna1, 77.66, 0.01);
     }
     
@@ -100,8 +96,7 @@ public class TaxesTests {
                 parametryUmowy.get("oprocentowanieUbezpieczenieRentowe"),
                 parametryUmowy.get("oprocentowanieUbezpieczenieChorobowe"));
         
-        double skladkaZdrowotna1 = 
-                Umowa.obliczProcentOd(obliczonaPodstawa, parametryUmowy.get("oprocentowanieSkladkaZdrowotna1"));
+        double skladkaZdrowotna1 = Umowa.obliczProcentOd(obliczonaPodstawa, parametryUmowy.get("oprocentowanieSkladkaZdrowotna1"));
         assertEquals(skladkaZdrowotna1, 77.66, 0.01);
     }
     
@@ -169,10 +164,8 @@ public class TaxesTests {
                 parametryUmowy.get("oprocentowanieUbezpieczenieEmerytalne"),
                 parametryUmowy.get("oprocentowanieUbezpieczenieRentowe"),
                 parametryUmowy.get("oprocentowanieUbezpieczenieChorobowe"));
-        double podstawaOpodatkowania = 
-                umowaZ.getPodstawaOpodatkowana(obliczonaPodstawa, umowaZ.getKosztyUzyskaniaPrzychodu());
-        double skladkaZdrowotna2 = 
-                Umowa.obliczProcentOd(obliczonaPodstawa, parametryUmowy.get("oprocentowanieSkladkaZdrowotna2"));
+        double podstawaOpodatkowania = umowaZ.getPodstawaOpodatkowana(obliczonaPodstawa, umowaZ.getKosztyUzyskaniaPrzychodu());
+        double skladkaZdrowotna2 = Umowa.obliczProcentOd(obliczonaPodstawa, parametryUmowy.get("oprocentowanieSkladkaZdrowotna2"));
         
         double zaliczkaDoUrzeduSkarbowego = umowaZ.getZaliczkaNaUS(umowaZ.getZaliczkaNaPodatke(podstawaOpodatkowania, parametryUmowy.get("procentPodatku")), skladkaZdrowotna2, umowaZ.getKwotaWolnaOdPodatku());
         assertEquals(zaliczkaDoUrzeduSkarbowego, 57.38, 0.01);
@@ -185,70 +178,12 @@ public class TaxesTests {
                 parametryUmowy.get("oprocentowanieUbezpieczenieEmerytalne"),
                 parametryUmowy.get("oprocentowanieUbezpieczenieRentowe"),
                 parametryUmowy.get("oprocentowanieUbezpieczenieChorobowe"));
-        double podstawaOpodatkowania = 
-                umowaP.getPodstawaOpodatkowana(obliczonaPodstawa, umowaP.getKosztyUzyskaniaPrzychodu());
-        double skladkaZdrowotna2 = 
-                Umowa.obliczProcentOd(obliczonaPodstawa, parametryUmowy.get("oprocentowanieSkladkaZdrowotna2"));
+        double podstawaOpodatkowania = umowaP.getPodstawaOpodatkowana(obliczonaPodstawa, umowaP.getKosztyUzyskaniaPrzychodu());
+        double skladkaZdrowotna2 = Umowa.obliczProcentOd(obliczonaPodstawa, parametryUmowy.get("oprocentowanieSkladkaZdrowotna2"));
         
         double zaliczkaDoUrzeduSkarbowego = umowaP.getZaliczkaNaUS(umowaP.getZaliczkaNaPodatke(podstawaOpodatkowania, parametryUmowy.get("procentPodatku")), skladkaZdrowotna2, umowaP.getKwotaWolnaOdPodatku());
         assertEquals(zaliczkaDoUrzeduSkarbowego, 22.09, 0.01);
-    }
-    
-     @Test
-    public void testWynagrodzenieUmowyZlecenie() {    
-        double obliczonaPodstawa = umowaZ.obliczonaPodstawa(
-                parametryUmowy.get("kwotaDochodu"),
-                parametryUmowy.get("oprocentowanieUbezpieczenieEmerytalne"),
-                parametryUmowy.get("oprocentowanieUbezpieczenieRentowe"),
-                parametryUmowy.get("oprocentowanieUbezpieczenieChorobowe"));
-        double podstawaOpodatkowania = 
-                umowaZ.getPodstawaOpodatkowana(obliczonaPodstawa, umowaZ.getKosztyUzyskaniaPrzychodu());
-        double skladkaEmerytalna = 
-                Umowa.obliczProcentOd(parametryUmowy.get("kwotaDochodu"), parametryUmowy.get("oprocentowanieUbezpieczenieEmerytalne"));
-        double skladkaRentowa = 
-                Umowa.obliczProcentOd(parametryUmowy.get("kwotaDochodu"), parametryUmowy.get("oprocentowanieUbezpieczenieRentowe"));
-        double skladkaChorobowa = 
-                Umowa.obliczProcentOd(parametryUmowy.get("kwotaDochodu"), parametryUmowy.get("oprocentowanieUbezpieczenieChorobowe"));
-        double skladkaZdrowotna1 = 
-                Umowa.obliczProcentOd(obliczonaPodstawa, parametryUmowy.get("oprocentowanieSkladkaZdrowotna1"));  
-        double skladkaZdrowotna2 = 
-                Umowa.obliczProcentOd(obliczonaPodstawa, parametryUmowy.get("oprocentowanieSkladkaZdrowotna2"));         
-        double zaliczkaDoUrzeduSkarbowego = 
-                umowaZ.getZaliczkaNaUS(umowaZ.getZaliczkaNaPodatke(podstawaOpodatkowania, parametryUmowy.get("procentPodatku")), skladkaZdrowotna2, umowaZ.getKwotaWolnaOdPodatku());
-        
-        double Wynagrodzenie = umowaZ.getWynagrodzenie(umowaZ.getParametrUmowy("kwotaDochodu"), skladkaEmerytalna, 
-                skladkaRentowa, skladkaChorobowa, skladkaZdrowotna1, zaliczkaDoUrzeduSkarbowego);        
-        
-        assertEquals(Wynagrodzenie, 727.856, 0.001);       
-    }
-    
-    @Test
-    public void testWynagrodzenieUmowyOPrace() {    
-        double obliczonaPodstawa = umowaP.obliczonaPodstawa(
-                parametryUmowy.get("kwotaDochodu"),
-                parametryUmowy.get("oprocentowanieUbezpieczenieEmerytalne"),
-                parametryUmowy.get("oprocentowanieUbezpieczenieRentowe"),
-                parametryUmowy.get("oprocentowanieUbezpieczenieChorobowe"));
-        double podstawaOpodatkowania = 
-                umowaP.getPodstawaOpodatkowana(obliczonaPodstawa, umowaP.getKosztyUzyskaniaPrzychodu());
-        double skladkaEmerytalna = 
-                Umowa.obliczProcentOd(parametryUmowy.get("kwotaDochodu"), parametryUmowy.get("oprocentowanieUbezpieczenieEmerytalne"));
-        double skladkaRentowa = 
-                Umowa.obliczProcentOd(parametryUmowy.get("kwotaDochodu"), parametryUmowy.get("oprocentowanieUbezpieczenieRentowe"));
-        double skladkaChorobowa = 
-                Umowa.obliczProcentOd(parametryUmowy.get("kwotaDochodu"), parametryUmowy.get("oprocentowanieUbezpieczenieChorobowe"));
-        double skladkaZdrowotna1 = 
-                Umowa.obliczProcentOd(obliczonaPodstawa, parametryUmowy.get("oprocentowanieSkladkaZdrowotna1"));  
-        double skladkaZdrowotna2 = 
-                Umowa.obliczProcentOd(obliczonaPodstawa, parametryUmowy.get("oprocentowanieSkladkaZdrowotna2"));         
-        double zaliczkaDoUrzeduSkarbowego = 
-                umowaP.getZaliczkaNaUS(umowaP.getZaliczkaNaPodatke(podstawaOpodatkowania, parametryUmowy.get("procentPodatku")), skladkaZdrowotna2, umowaP.getKwotaWolnaOdPodatku());
-        
-        double Wynagrodzenie = umowaP.getWynagrodzenie(umowaP.getParametrUmowy("kwotaDochodu"), skladkaEmerytalna, 
-                skladkaRentowa, skladkaChorobowa, skladkaZdrowotna1, zaliczkaDoUrzeduSkarbowego);        
-        
-        assertEquals(Wynagrodzenie, 763.146, 0.001);       
-    }
+    }    
 }
 
 
